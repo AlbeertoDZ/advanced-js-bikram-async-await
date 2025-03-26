@@ -79,7 +79,7 @@ getImageAndName("squirtle");
 // }
 
 async function printImageAndName() {
-    let pokRandom = Math.floor(Math.random() * 151) + 1
+    let pokRandom = Math.floor(Math.random() * 10) + 1
     let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokRandom}`)
     let pokemon = await response.json()
     let name = pokemon.name
@@ -90,7 +90,7 @@ async function printImageAndName() {
     <h1>${name}</h1>
     </section>`
 }
-
+printImageAndName();
 //      ### Ejercicios Batalla entre Pokemon y perritos ###
 
 // Ejercicio 4.- Declara una función **getRandomDogImage** que retorne la url de la imagen de un perro aleatorio
@@ -109,9 +109,10 @@ async function getRandomDogImage() {
         console.error('Hubo un problema con la solucitud',error.message);
     }
 } 
+getRandomDogImage();
 //Ejercicio 5.- Declara una función **getRandomPokemonImage** que retorne la url de la imagen de un pokemon aleatorio.
 async function getRandomPokemonImage() {
-    const pokAleatorio = 1 + Math.floor(Math.random() * 100);
+    const pokAleatorio = 1 + Math.floor(Math.random() * 10);
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokAleatorio}`);
 
@@ -127,9 +128,63 @@ async function getRandomPokemonImage() {
         console.error('Hubo un problema con la solucitud',error.message);
     }
 } 
+
+getRandomPokemonImage();
 //Ejercicio 6.- Declara una función **printPugVsPikachu** que pinte la batalla entre "Pug" y "Pikachu" (no se testea)
 
+function printPugvsPikachu() {
+    const pikachuURL = "https://pokeapi.co/api/v2/pokemon/pikachu";
+    const pugURL = "https://dog.ceo/api/breed/pug/images/random";
 
+    Promise.all([
+        fetch(pikachuURL).then(res => res.json()),
+        fetch(pugURL).then(res => res.json())
+    ]).then(data => {    
+        const pikachuData = data[0];
+        const pugData = data[1];
+        
+        // Crear elementos
+        const section = document.createElement("section");
+        
+        const imagenPikachu = document.createElement("img");
+        imagenPikachu.src = pikachuData.sprites.front_default;
+        imagenPikachu.alt = "Pikachu";
+        const nombrePikachu = document.createElement("h1");
+        nombrePikachu.textContent = "Pikachu";
+        
+        const imagenPug = document.createElement("img");
+        imagenPug.src = pugData.message;
+        imagenPug.alt = "Pug";
+        const nombrePug = document.createElement("h1");
+        nombrePug.textContent = "Pug";
+        
+        // Añadir elementos al section
+        section.appendChild(imagenPikachu);
+        section.appendChild(nombrePikachu);
+        section.appendChild(imagenPug);
+        section.appendChild(nombrePug);
+        
+        document.body.appendChild(section);
+    }).catch(error => {
+        console.error("Error fetching data:", error);
+    });
+}
+
+printPugvsPikachu();
+
+// let pokemonInfo = []
+// async function printImageAndName(){
+//     const imagenElemento = document.createElement("img");
+//     const nombreElemento = document.createElement("h1");
+//     imagenElemento.src = pokemonInfo[0].img;
+//     nombreElemento.textContent = pokemonInfo[0].name;
+//     document.body.appendChild(imagenElemento);
+//     document.body.appendChild(nombreElemento);
+//     return `<section>
+//     <ig src="${imagenElemento}" alt="${nombreElemento}">
+//     <h1>${nombreElemento}</h1>
+// </section>`;
+// }
 
 //      ### Ejercicios con Rick and Morty ###
 
@@ -161,7 +216,6 @@ async function getRandomCharacterInfo() {
     let img = character.image
     let name = character.name
     let episodes = character.episode
-
     let episodeInfo = await fetch(character.episode[0]) 
 
     let dataEpisode = await episodeInfo.json()
@@ -174,4 +228,7 @@ async function getRandomCharacterInfo() {
 }
 
 getRandomCharacterInfo()
+
+// Ejercicio 9.- Pinta los anteriores datos en el DOM (no se testea)
+
 

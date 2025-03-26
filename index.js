@@ -5,7 +5,7 @@
 
 // Ejercicio 1.- Declara una función **getRandomPokemon** que retorne un pokemon aleatorio.
 async function getRandomPokemon() {
-    const pokAleatorio = Math.floor(Math.random() * 1302) + 1;
+    const pokAleatorio = 1 + Math.floor(Math.random() * 100);
     console.log(pokAleatorio);
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokAleatorio}`);
@@ -64,18 +64,31 @@ getImageAndName("squirtle");
 </section>
 ```
 */
-let pokemonInfo = []
-async function printImageAndName(){
-    const imagenElemento = document.createElement("img");
-    const nombreElemento = document.createElement("h1");
-    imagenElemento.src = pokemonInfo[0].img;
-    nombreElemento.textContent = pokemonInfo[0].name;
-    document.body.appendChild(imagenElemento);
-    document.body.appendChild(nombreElemento);
+// let pokemonInfo = []
+// async function printImageAndName(){
+//     const imagenElemento = document.createElement("img");
+//     const nombreElemento = document.createElement("h1");
+//     imagenElemento.src = pokemonInfo[0].img;
+//     nombreElemento.textContent = pokemonInfo[0].name;
+//     document.body.appendChild(imagenElemento);
+//     document.body.appendChild(nombreElemento);
+//     return `<section>
+//     <img src="${imagenElemento}" alt="${nombreElemento}">
+//     <h1>${nombreElemento}</h1>
+// </section>`;
+// }
+
+async function printImageAndName() {
+    let pokRandom = Math.floor(Math.random() * 151) + 1
+    let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokRandom}`)
+    let pokemon = await response.json()
+    let name = pokemon.name
+    let img = pokemon.sprites.front_default
+
     return `<section>
-    <img src="${imagenElemento}" alt="${nombreElemento}">
-    <h1>${nombreElemento}</h1>
-</section>`;
+    <img src="${img}" alt="${name}>
+    <h1>${name}</h1>
+    </section>`
 }
 
 //      ### Ejercicios Batalla entre Pokemon y perritos ###
@@ -98,7 +111,7 @@ async function getRandomDogImage() {
 } 
 //Ejercicio 5.- Declara una función **getRandomPokemonImage** que retorne la url de la imagen de un pokemon aleatorio.
 async function getRandomPokemonImage() {
-    const pokAleatorio = Math.floor(Math.random() * 1302);
+    const pokAleatorio = 1 + Math.floor(Math.random() * 100);
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokAleatorio}`);
 
@@ -123,7 +136,7 @@ async function getRandomPokemonImage() {
 //Ejercicio 7.- Declara una función **getRandomCharacter** que retorne un personaje aleatorio.
 
 async function getRandomCharacter() {
-    const persAleatorio = Math.floor(Math.random() * 826);
+    const persAleatorio = 1 + Math.floor(Math.random() * 100);
     try {
         const response = await fetch(`https://rickandmortyapi.com/api/character/${persAleatorio}`);
 
@@ -142,8 +155,8 @@ getRandomCharacter().then((data) => console.log(data))
 //Ejercicio 8.- Declara una función **getRandomCharacterInfo** que retorne de un personaje su imagen, nombre, episodios en los que aparece y el nombre del primer episodio en el que aparece + fecha de estreno, tendrás que hacer otro fetch para llegar a los ultimos datos. Formato de retorno => (return {img, name, episodes, firstEpisode, dateEpisode})
 
 async function getRandomCharacterInfo() {
-    let random = Math.floor(Math.random() * 100) + 1
-    let response = await fetch(`https://rickandmortyapi.com/api/character/1`) 
+    let random = 1 + Math.floor(Math.random() * 100) ;
+    let response = await fetch(`https://rickandmortyapi.com/api/character/${random}`) 
     let character = await response.json()
     let img = character.image
     let name = character.name
@@ -162,4 +175,3 @@ async function getRandomCharacterInfo() {
 
 getRandomCharacterInfo()
 
-//Ejercicio 9.- Pinta los anteriores datos en el DOM (no se testea)
